@@ -1,0 +1,72 @@
+[
+    {
+        "Header": "MWV",
+        "RequiredFields": [
+            {
+                "Description": "Wind angle : ",
+                "FieldType": "Single",
+                "Format": "^[0-3]?\\d?\\d(\\.\\d{1,2})?$"
+            },
+            {
+                "Description": "Reference : ",
+                "FieldType": "Char",
+                "Format": "^[r,R,t,T]$"
+            },
+            {
+                "Description": "Wind speed : ",
+                "FieldType": "Single",
+                "Format": "^\\-?\\d[0-9]*(\\.[0-9]*)?$"
+            },
+            {
+                "Description": "Wind speed units : ",
+                "FieldType": "Char",
+                "Format": "[k,K,m,M,n,N,s,S]"
+            },
+            {
+                "Description": "Status : ",
+                "FieldType": "Char",
+                "Format": "[a,A,v,V]"
+            }
+        ]
+    },
+    {
+        "Header": "GLL",
+        "RequiredFields": [
+            {
+                "Description": "Latitude : ",
+                "FieldType": "Single",
+                "Format": "^\\d{1,4}(\\.\\d{1,2})?$"
+            },
+            {
+                "Description": "North - South : ",
+                "FieldType": "Char",
+                "Format": "^[n,N,s,S]$"
+            },
+            {
+                "Description": "Longitude : ",
+                "FieldType": "Single",
+                "Format": "^\\d{1,4}(\\.\\d{1,2})?$"
+            },
+            {
+                "Description": "East - West : ",
+                "FieldType": "Char",
+                "Format": "^[e,E,w,W]$"
+            },
+            {
+                "Description": "UTC of position : ",
+                "FieldType": "Single",
+                "Format": "^[0-2]?\\d[0-5]\\d[0-5]\\d(\\.\\d{1,2})?$"
+            },
+            {
+                "Description": "Status : ",
+                "FieldType": "Char",
+                "Format": "[a,A,v,V]"
+            },
+            {
+                "Description": "Mode indicator : ",
+                "FieldType": "Char",
+                "Format": "[a,A,d,D,e,E,m,M,s,S,n,N]"
+            }
+        ]
+    }
+]
