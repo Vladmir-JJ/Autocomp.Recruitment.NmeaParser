@@ -26,11 +26,5 @@ namespace NmeaParserConsole
 
             Console.WriteLine();
         }
-
-
-        private void ParseField(IParsable field)
-        {
-
-        }
     }
 }

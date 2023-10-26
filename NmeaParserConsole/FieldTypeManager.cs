@@ -23,11 +23,6 @@ namespace NmeaParserConsole
                 type = field.Contains('.') ? typeof(float) : typeof(int);
                 //Console.WriteLine($"{field} is numerical {float.Parse(field, CultureInfo.InvariantCulture)}");
             }
-            else
-            {
-                //Better work OR ELSE! :D
-                //Console.WriteLine($"{field} is not a float - it is {type}");
-            }
 
             return type == expectedType;
         }
