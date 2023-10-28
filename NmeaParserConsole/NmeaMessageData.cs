@@ -1,34 +1,26 @@
 ﻿using Autocomp.Nmea.Common;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NmeaParserConsole.MessageData
 {
 
-    internal class NmeaMessageData
+    public class NmeaMessageData
     {
         private string RawMessage => _message.ToString();
 
         private NmeaMessage _message;
-        private List<IPrintableData> _printableData;
-        // protected PropertyInfo[] _properties;
+        private List<AbstractNmeaField> _printableData;
+        private string _description;
 
         public NmeaMessageData(NmeaMessage message, LoadableData data)
         {
             _message = message;
             _printableData = BuildFields(data);
-            //_properties = GetProperties();
+            _description = data.MessageDescription;
         }
 
-        private List<IPrintableData> BuildFields(LoadableData data)
+        private List<AbstractNmeaField> BuildFields(LoadableData data)
         {
-            List<IPrintableData> ret = new ();
+            List<AbstractNmeaField> ret = new ();
             NmeaFieldFactory fieldFactory = new NmeaFieldFactory();
 
             for (int i = 0; i < data.RequiredFields.Count; i++)
@@ -43,12 +35,15 @@ namespace NmeaParserConsole.MessageData
 
         public virtual void PrintMessage()
         {
-            Console.WriteLine($"Succesfully printing message with header {_message.Header}\nRaw message:\n{RawMessage}\n");
+            Console.WriteLine($"========  {_message.Header}  ========");
+            Console.WriteLine($"{_description}\n");
+
+            Console.WriteLine($"Raw message:{RawMessage}");
             for (int i = 0; i < _printableData.Count; i++)
             {
                 Console.WriteLine(_printableData[i].GetPrintData());
             }
-            Console.WriteLine("\n");
+            Console.WriteLine($"\n========  /{_message.Header}  ========\n");
         }
     }
 }

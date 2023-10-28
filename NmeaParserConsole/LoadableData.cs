@@ -6,12 +6,14 @@ namespace NmeaParserConsole
     public class LoadableData : IStorableData
     {      
         public string Header { get; set; }
+        public string MessageDescription { get; set; }
         public List<FieldCharacteristics> RequiredFields { get; set; }
 
         [JsonConstructor]
-        public LoadableData(string Header, List<FieldCharacteristics> RequiredFields)
+        public LoadableData(string Header, string MessageDescription, List<FieldCharacteristics> RequiredFields)
         {
             this.Header = Header;
+            this.MessageDescription = MessageDescription;
             this.RequiredFields = RequiredFields;
         }
 
