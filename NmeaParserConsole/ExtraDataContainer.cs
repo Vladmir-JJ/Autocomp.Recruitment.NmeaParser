@@ -4,10 +4,12 @@ namespace NmeaParserConsole
 {
     public enum ExtraDataType
     {
-        None,
+        None = 0,
         Status,
         ModeIndicator,
-        Reference
+        Reference,
+        CardinalDirections,
+        WindSpeedUnits
     }
 
     [Serializable]
