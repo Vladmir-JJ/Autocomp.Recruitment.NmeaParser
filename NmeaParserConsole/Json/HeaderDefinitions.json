@@ -1,1 +1,120 @@
-[{"Header":"MWV","MessageDescription":"Wind Speed and Angle","RequiredFields":[{"Description":"Wind angle : ","FieldType":"Single","Format":"^[0-3]?\\d?\\d(\\.\\d{1,2})?$","ExtraData":"None"},{"Description":"Reference : ","FieldType":"Char","Format":"^[r,R,t,T]$","ExtraData":"Reference"},{"Description":"Wind speed : ","FieldType":"Single","Format":"^\\-?\\d[0-9]*(\\.[0-9]*)?$","ExtraData":"None"},{"Description":"Wind speed units : ","FieldType":"Char","Format":"[k,K,m,M,n,N,s,S]","ExtraData":"WindSpeedUnits"},{"Description":"Status : ","FieldType":"Char","Format":"[a,A,v,V]","ExtraData":"Status"}]},{"Header":"GLL","MessageDescription":"Geographic Position - Latitude/Longitude","RequiredFields":[{"Description":"Latitude : ","FieldType":"Single","Format":"^\\d{1,4}(\\.\\d{1,2})?$","ExtraData":"None"},{"Description":"North - South : ","FieldType":"Char","Format":"^[n,N,s,S]$","ExtraData":"CardinalDirections"},{"Description":"Longitude : ","FieldType":"Single","Format":"^\\d{1,4}(\\.\\d{1,2})?$","ExtraData":"None"},{"Description":"East - West : ","FieldType":"Char","Format":"^[e,E,w,W]$","ExtraData":"CardinalDirections"},{"Description":"UTC of position : ","FieldType":"Single","Format":"^[0-2]?\\d[0-5]\\d[0-5]\\d(\\.\\d{1,2})?$","ExtraData":"None"},{"Description":"Status : ","FieldType":"Char","Format":"[a,A,v,V]","ExtraData":"Status"},{"Description":"Mode indicator : ","FieldType":"Char","Format":"[a,A,d,D,e,E,m,M,s,S,n,N]","ExtraData":"ModeIndicator"}]}]
+[
+    {
+        "Header": "MWV",
+        "MessageDescription": "Wind Speed and Angle",
+        "MessageFormat": "MWV,x.x,a,y.y,b,c\nx.x: wind angle [0-360]\na:reference [R/T]\ny.y: wind speed [float]\nb: wind speed units [K/M/N/S]\nc: status [A/V]",
+        "RequiredFields": [
+            {
+                "Description": "Wind angle : ",
+                "FieldType": "Single",
+                "Format": "^[0-3]?\\d?\\d(\\.\\d*)?$",
+                "ExtraData": "None"
+            },
+            {
+                "Description": "Reference : ",
+                "FieldType": "Char",
+                "Format": "^[R,T]$",
+                "ExtraData": "Reference"
+            },
+            {
+                "Description": "Wind speed : ",
+                "FieldType": "Single",
+                "Format": "^\\-?\\d[0-9]*(\\.[0-9]*)?$",
+                "ExtraData": "None"
+            },
+            {
+                "Description": "Wind speed units : ",
+                "FieldType": "Char",
+                "Format": "^[K,M,N,S]$",
+                "ExtraData": "WindSpeedUnits"
+            },
+            {
+                "Description": "Status : ",
+                "FieldType": "Char",
+                "Format": "^[A,V]$",
+                "ExtraData": "Status"
+            }
+        ]
+    },
+    {
+        "Header": "GLL",
+        "MessageDescription": "Geographic Position - Latitude/Longitude",
+        "MessageFormat": "GLL,xxxxx.xx,a,y.y,b,c\nxxxxx.xx: latitude\na:north-south [N/S]\nyyyyy.yy: longitude\nb: east-west [E/W]\nhhmmss.dd: UTC of position\nc: status [A/V]\nd: mode indicator: [A/D/E/M/N/S]",
+        "RequiredFields": [
+            {
+                "Description": "Latitude : ",
+                "FieldType": "Single",
+                "Format": "^\\d{5}\\.?(\\d{1,2})?$",
+                "ExtraData": "None"
+            },
+            {
+                "Description": "North - South : ",
+                "FieldType": "Char",
+                "Format": "^[N,S]$",
+                "ExtraData": "CardinalDirections"
+            },
+            {
+                "Description": "Longitude : ",
+                "FieldType": "Single",
+                "Format": "^\\d{5}\\.?(\\d{1,2})?$",
+                "ExtraData": "None"
+            },
+            {
+                "Description": "East - West : ",
+                "FieldType": "Char",
+                "Format": "^[E,W]$",
+                "ExtraData": "CardinalDirections"
+            },
+            {
+                "Description": "UTC of position : ",
+                "FieldType": "Single",
+                "Format": "^([0-1][0-9]|2[0-3])[0-5]\\d[0-5]\\d(\\.\\d*)?$",
+                "ExtraData": "None"
+            },
+            {
+                "Description": "Status : ",
+                "FieldType": "Char",
+                "Format": "^[A,V]$",
+                "ExtraData": "Status"
+            },
+            {
+                "Description": "Mode indicator : ",
+                "FieldType": "Char",
+                "Format": "^[A,D,E,M,S,N]$",
+                "ExtraData": "ModeIndicator"
+            }
+        ]
+    },
+    {
+        "Header": "AAA",
+        "MessageDescription": "Test message",
+        "MessageFormat": "AAA,x,A\nx: Number single digit\nA: char [X/D]",
+        "RequiredFields": [
+            {
+                "Description": "Number: ",
+                "FieldType": "Single",
+                "Format": "^[0-9]$",
+                "ExtraData": "None"
+            },
+            {
+                "Description": "Letter: ",
+                "FieldType": "Char",
+                "Format": "^[X,D]$",
+                "ExtraData": "None"
+            }
+        ]
+    },
+    {
+        "Header": "XD",
+        "MessageDescription": "Test message 2 age",
+        "MessageFormat": "XD,xx\nxx: age number 2 digits fixed",
+        "RequiredFields": [
+            {
+                "Description": "Age: ",
+                "FieldType": "Single",
+                "Format": "^[0-9]{2}$",
+                "ExtraData": "None"
+            }
+        ]
+    }
+]
