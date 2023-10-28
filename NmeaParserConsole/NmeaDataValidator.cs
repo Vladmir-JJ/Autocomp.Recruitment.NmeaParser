@@ -8,7 +8,7 @@ namespace NmeaParserConsole
     {
         public NmeaMessageData? GetValidNmeaMessageData(NmeaMessage message)
         {
-            LoadableData? fieldsData = SentenceFormatterImporter.GetNmeaFieldsDataFormat(message.Header);
+            LoadableData? fieldsData = SentenceFormatterImporter.GetDataFromFile(message.Header, ImportedData.HeaderDefinitions) as LoadableData;
             if (fieldsData == null)
             {
                 Console.WriteLine($"[{this}] unsupported header: {message.Header}");
@@ -20,7 +20,7 @@ namespace NmeaParserConsole
             return new NmeaMessageData(message, fieldsData);
         }
 
-        private bool ValidateFields(string[] fields, List<LoadableData.FieldCharacteristics> expectedFields)
+        private bool ValidateFields(string[] fields, List<FieldCharacteristics> expectedFields)
         {
             if (fields.Length != expectedFields.Count)
             {
@@ -35,7 +35,7 @@ namespace NmeaParserConsole
             return true;
         }
 
-        private bool ValidateField(string fieldValue, LoadableData.FieldCharacteristics expectedFieldCharacteristic)
+        private bool ValidateField(string fieldValue, FieldCharacteristics expectedFieldCharacteristic)
         {
             if (Regex.Match(fieldValue, expectedFieldCharacteristic.Format).Success)
             {

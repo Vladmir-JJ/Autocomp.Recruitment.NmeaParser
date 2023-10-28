@@ -5,7 +5,7 @@ namespace NmeaParserConsole
 {
     internal class NmeaFieldFactory
     {
-        public IPrintableData? CreateField(LoadableData.FieldCharacteristics fieldInfo, string fieldValue)
+        public IPrintableData? CreateField(FieldCharacteristics fieldInfo, string fieldValue)
         {
             string fieldType = fieldInfo.FieldType;
             if (fieldType == typeof(float).Name)
