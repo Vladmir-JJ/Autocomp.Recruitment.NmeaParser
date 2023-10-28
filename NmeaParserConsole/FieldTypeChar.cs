@@ -2,20 +2,18 @@
 
 namespace NmeaParserConsole
 {
-    internal class FieldTypeChar : IPrintableData
+    public class FieldTypeChar : AbstractNmeaField
     {
         private char _char;
-        private string _description;
 
-        public FieldTypeChar(char c, string description)
+        public FieldTypeChar(char c, string description, ExtraDataContainer? extraData) : base(description, extraData)
         {
             _char = c;
-            _description = description;
-        }
+        }     
 
-        public string GetPrintData()
+        public override string GetPrintData()
         {
-            return _description + _char;
+            return _description + _char + " " + GetExtraData(_char.ToString());
         }
     }
 }

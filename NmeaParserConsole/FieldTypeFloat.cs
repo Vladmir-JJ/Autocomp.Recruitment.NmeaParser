@@ -1,19 +1,21 @@
-﻿namespace NmeaParserConsole.MessageData
+﻿using System.Globalization;
+
+namespace NmeaParserConsole.MessageData
 { 
-    public class FieldTypeFloat : IPrintableData
+    public class FieldTypeFloat : AbstractNmeaField
     {
         private float _floatValue;
-        private string _description;
 
-        public FieldTypeFloat(float floatValue, string description)
+        public FieldTypeFloat(float floatValue, string description, ExtraDataContainer? extraData) : base(description, extraData)
         {
             _floatValue = floatValue;
-            _description = description;
         }
 
-        public string GetPrintData()
+        public override string GetPrintData()
         {
-            return _description +_floatValue;
+            NumberFormatInfo nfi = new NumberFormatInfo();
+            nfi.NumberDecimalSeparator = ".";
+            return _description +_floatValue.ToString(nfi) + " " + GetExtraData(_floatValue.ToString());
         }
     }
 }
