@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace NmeaParserConsole
 {
-    internal class NmeaDataValidator
+    public class NmeaDataValidator
     {
         public NmeaMessageData? GetValidNmeaMessageData(NmeaMessage message)
         {
@@ -18,7 +18,7 @@ namespace NmeaParserConsole
                 return null;
 
             return new NmeaMessageData(message, fieldsData);
-        }
+        }      
 
         private bool ValidateFields(string[] fields, List<FieldCharacteristics> expectedFields)
         {
@@ -29,15 +29,15 @@ namespace NmeaParserConsole
             }
             for (int i = 0; i < fields.Length; i++)
             {
-                if (!ValidateField(fields[i], expectedFields[i]))
+                if (!ValidateField(fields[i], expectedFields[i].Format))
                     return false;
             }
             return true;
         }
 
-        private bool ValidateField(string fieldValue, FieldCharacteristics expectedFieldCharacteristic)
+        private bool ValidateField(string fieldValue, string expectedFormat)
         {
-            if (Regex.Match(fieldValue, expectedFieldCharacteristic.Format).Success)
+            if (Regex.Match(fieldValue, expectedFormat).Success)
             {
                 return true;
             }
