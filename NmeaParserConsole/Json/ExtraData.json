@@ -1,0 +1,57 @@
+[
+    {
+        "ExtraDataType": "Reference",
+        "ExtraInfo": [
+            {
+                "Key": "R",
+                "Value": "relative"
+            },
+            {
+                "Key": "T",
+                "Value": "total"
+            }
+        ]
+    },
+    {
+        "ExtraDataType": "Status",
+        "ExtraInfo": [
+            {
+                "Key": "A",
+                "Value": "data valid"
+            },
+            {
+                "Key": "V",
+                "Value": "data invalid"
+            }
+        ]
+    },
+    {
+        "ExtraDataType": "ModeIndicator",
+        "ExtraInfo": [
+            {
+                "Key": "A",
+                "Value": "Autonomous mode"
+            },
+            {
+                "Key": "D",
+                "Value": "Differential mode"
+            },
+            {
+                "Key": "E",
+                "Value": "Estimated(dead reckoning) mode"
+            },
+            {
+                "Key": "M",
+                "Value": "Manual input mode"
+            },
+            {
+                "Key": "S",
+                "Value": "Simulator mode"
+            },
+            {
+                "Key": "N",
+                "Value": "Data not valid"
+            }
+        ]
+    }
+]
