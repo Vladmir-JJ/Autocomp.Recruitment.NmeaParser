@@ -1,6 +1,6 @@
-﻿using NmeaParserConsole.MessageData;
+﻿using NmeaParserConsole.Data.SerializableData.ExtraData;
 
-namespace NmeaParserConsole
+namespace NmeaParserConsole.Data.DataFields
 {
     public class FieldTypeChar : AbstractNmeaField
     {
@@ -9,7 +9,7 @@ namespace NmeaParserConsole
         public FieldTypeChar(char c, string description, ExtraDataContainer? extraData) : base(description, extraData)
         {
             _char = c;
-        }     
+        }
 
         public override string GetPrintData()
         {

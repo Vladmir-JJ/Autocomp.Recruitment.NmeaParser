@@ -1,6 +1,8 @@
 ﻿using Autocomp.Nmea.Common;
+using NmeaParserConsole.Data.DataFields;
+using NmeaParserConsole.Data.SerializableData.HeaderDefinition;
 
-namespace NmeaParserConsole.MessageData
+namespace NmeaParserConsole.Data
 {
 
     public class NmeaMessageData
@@ -11,17 +13,17 @@ namespace NmeaParserConsole.MessageData
         private List<AbstractNmeaField> _printableData;
         private string _description;
 
-        public NmeaMessageData(NmeaMessage message, LoadableData data)
+        public NmeaMessageData(NmeaMessage message, HeaderDefinitionData data)
         {
             _message = message;
             _printableData = BuildFields(data);
             _description = data.MessageDescription;
         }
 
-        private List<AbstractNmeaField> BuildFields(LoadableData data)
+        private List<AbstractNmeaField> BuildFields(HeaderDefinitionData data)
         {
-            List<AbstractNmeaField> ret = new ();
-            NmeaFieldFactory fieldFactory = new NmeaFieldFactory();
+            List<AbstractNmeaField> ret = new();
+            NmeaMessageDataFieldFactory fieldFactory = new NmeaMessageDataFieldFactory();
 
             for (int i = 0; i < data.RequiredFields.Count; i++)
             {
@@ -35,7 +37,7 @@ namespace NmeaParserConsole.MessageData
 
         public virtual void PrintMessage()
         {
-            Console.WriteLine($"========  {_message.Header}  ========");
+            Console.WriteLine($"\n========  {_message.Header}  ========");
             Console.WriteLine($"{_description}\n");
 
             Console.WriteLine($"Raw message:{RawMessage}");
@@ -43,7 +45,7 @@ namespace NmeaParserConsole.MessageData
             {
                 Console.WriteLine(_printableData[i].GetPrintData());
             }
-            Console.WriteLine($"\n========  /{_message.Header}  ========\n");
+            Console.WriteLine($"\n========  /{_message.Header}  ========");
         }
     }
 }

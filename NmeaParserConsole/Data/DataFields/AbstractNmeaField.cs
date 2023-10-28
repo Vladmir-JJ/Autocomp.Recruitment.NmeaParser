@@ -1,4 +1,6 @@
-﻿namespace NmeaParserConsole.MessageData
+﻿using NmeaParserConsole.Data.SerializableData.ExtraData;
+
+namespace NmeaParserConsole.Data.DataFields
 {
     public abstract class AbstractNmeaField
     {

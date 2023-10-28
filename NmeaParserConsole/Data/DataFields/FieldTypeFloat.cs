@@ -1,7 +1,8 @@
 ﻿using System.Globalization;
+using NmeaParserConsole.Data.SerializableData.ExtraData;
 
-namespace NmeaParserConsole.MessageData
-{ 
+namespace NmeaParserConsole.Data.DataFields
+{
     public class FieldTypeFloat : AbstractNmeaField
     {
         private float _floatValue;
@@ -15,7 +16,7 @@ namespace NmeaParserConsole.MessageData
         {
             NumberFormatInfo nfi = new NumberFormatInfo();
             nfi.NumberDecimalSeparator = ".";
-            return _description +_floatValue.ToString(nfi) + " " + GetExtraData(_floatValue.ToString());
+            return _description + _floatValue.ToString(nfi) + " " + GetExtraData(_floatValue.ToString());
         }
     }
 }

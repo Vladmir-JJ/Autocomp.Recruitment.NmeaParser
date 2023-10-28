@@ -1,4 +1,6 @@
-﻿namespace NmeaParserConsole
+﻿using NmeaParserConsole.Data.SerializableData.ExtraData;
+
+namespace NmeaParserConsole.Interfaces
 {
     public interface IExtraData
     {

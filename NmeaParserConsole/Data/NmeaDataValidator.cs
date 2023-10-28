@@ -1,14 +1,15 @@
 ﻿using Autocomp.Nmea.Common;
-using NmeaParserConsole.MessageData;
+using NmeaParserConsole.Data.SerializableData.HeaderDefinition;
+using NmeaParserConsole.JsonUtilities;
 using System.Text.RegularExpressions;
 
-namespace NmeaParserConsole
+namespace NmeaParserConsole.Data
 {
     public class NmeaDataValidator
     {
         public NmeaMessageData? GetValidNmeaMessageData(NmeaMessage message)
         {
-            LoadableData? fieldsData = SentenceFormatterImporter.GetDataFromFile(message.Header, ImportedData.HeaderDefinitions) as LoadableData;
+            HeaderDefinitionData? fieldsData = SentenceFormatterImporter.GetDataFromFile(message.Header, ImportedData.HeaderDefinitions) as HeaderDefinitionData;
             if (fieldsData == null)
             {
                 Console.WriteLine($"[{this}] unsupported header: {message.Header}");
@@ -18,9 +19,9 @@ namespace NmeaParserConsole
                 return null;
 
             return new NmeaMessageData(message, fieldsData);
-        }      
+        }
 
-        private bool ValidateFields(string[] fields, List<FieldCharacteristics> expectedFields)
+        private bool ValidateFields(string[] fields, List<HeaderDefinitionFieldCharacteristics> expectedFields)
         {
             if (fields.Length != expectedFields.Count)
             {
@@ -30,7 +31,11 @@ namespace NmeaParserConsole
             for (int i = 0; i < fields.Length; i++)
             {
                 if (!ValidateField(fields[i], expectedFields[i].Format))
+                {
+                    //TODO: error
+                    Console.WriteLine($"[{this}] invalid format {fields[i]} at field of index [{i}]");
                     return false;
+                }
             }
             return true;
         }

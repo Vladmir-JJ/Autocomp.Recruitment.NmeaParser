@@ -1,11 +1,14 @@
-﻿using NmeaParserConsole.MessageData;
+﻿using NmeaParserConsole.Data.DataFields;
+using NmeaParserConsole.Data.SerializableData.ExtraData;
+using NmeaParserConsole.Data.SerializableData.HeaderDefinition;
+using NmeaParserConsole.JsonUtilities;
 using System.Globalization;
 
-namespace NmeaParserConsole
+namespace NmeaParserConsole.Data
 {
-    public class NmeaFieldFactory
+    public class NmeaMessageDataFieldFactory
     {
-        public AbstractNmeaField? CreateField(FieldCharacteristics fieldInfo, string fieldValue)
+        public AbstractNmeaField? CreateField(HeaderDefinitionFieldCharacteristics fieldInfo, string fieldValue)
         {
             ExtraDataContainer? extraData = GetExtraData(fieldInfo);
             string fieldType = fieldInfo.FieldType;
@@ -27,7 +30,7 @@ namespace NmeaParserConsole
             return null;
         }
 
-        private ExtraDataContainer? GetExtraData(FieldCharacteristics fieldInfo)
+        private ExtraDataContainer? GetExtraData(HeaderDefinitionFieldCharacteristics fieldInfo)
         {
             if (fieldInfo.ExtraData == ExtraDataType.None.ToString())
                 return null;
