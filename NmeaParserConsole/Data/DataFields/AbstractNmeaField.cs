@@ -19,7 +19,6 @@ namespace NmeaParserConsole.Data.DataFields
         {
             if (_extraData == null)
                 return "";
-            input.ToUpper();
             var data = _extraData.ExtraInfo.FirstOrDefault(d => d.Key == input);
             if (data != default)
                 return data.Value;

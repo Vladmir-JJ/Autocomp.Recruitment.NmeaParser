@@ -3,7 +3,6 @@ using NmeaParserConsole.Interfaces;
 
 namespace NmeaParserConsole.Data.SerializableData.ExtraData
 {
-
     [Serializable]
     public class ExtraDataContainer : ISerializableData
     {
