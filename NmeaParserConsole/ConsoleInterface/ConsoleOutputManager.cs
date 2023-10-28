@@ -1,13 +1,14 @@
 ﻿using NmeaParserConsole.Data.SerializableData.HeaderDefinition;
 using NmeaParserConsole.JsonUtilities;
+using static NmeaParserConsole.ConsoleInterface.ConsoleMessageLibrary;
 
 namespace NmeaParserConsole.ConsoleInterface
 {
-    public class ConsoleOutputManager
+    public static class ConsoleOutputManager
     {
         public static void PrintWelcomeMessage()
         {
-            Console.WriteLine("NMEA 0183\r\nStandard For Interfacing\r\nMarine Electronic Devices\r\n\nNMEA message parser\r\nCreated 28.10.2023 by Jędrzej Wysocki for Autocomp Managment\n");
+            Console.WriteLine(HELLO_MESSAGE);
             PrintHelpMessage();
         }
 
@@ -23,17 +24,13 @@ namespace NmeaParserConsole.ConsoleInterface
                         Console.WriteLine(headerDefinition.MessageFormat+"\n");
                 }
             }
-            else
-            {
-                //TODO: log error Console.WriteLine($"No valid data file found in ");
-            }
             onComplete?.Invoke();
         }
 
         public static void PrintHelpMessage()
         {
-            Console.WriteLine("\nPrint currently supported headers: [1]\nEnter NMEA message to parse: [2]\nEnter new NMEA message definition [3]");
-            ConsoleInputManager.AwaitImput("Awaiting user input...\n");
+            Console.WriteLine(CHOOSE_ACTION);
+            ConsoleInputManager.AwaitImput(AWAITING_INPUT);
         }
 
         public static void PrintMessageWithCallback(string message, Action onComplete)
@@ -41,6 +38,5 @@ namespace NmeaParserConsole.ConsoleInterface
             Console.WriteLine(message);
             onComplete?.Invoke();
         }
-
     }
 }

@@ -1,10 +1,10 @@
 ﻿using Autocomp.Nmea.Common;
 using NmeaParserConsole.Data.DataFields;
 using NmeaParserConsole.Data.SerializableData.HeaderDefinition;
+using static NmeaParserConsole.ConsoleInterface.ConsoleMessageLibrary;
 
 namespace NmeaParserConsole.Data
 {
-
     public class NmeaMessageData
     {
         private string RawMessage => _message.ToString();
@@ -31,21 +31,17 @@ namespace NmeaParserConsole.Data
                 if (field != null)
                     ret.Add(field);
             }
-
             return ret;
         }
 
         public virtual void PrintMessage()
         {
-            Console.WriteLine($"\n========  {_message.Header}  ========");
-            Console.WriteLine($"{_description}\n");
-
-            Console.WriteLine($"Raw message:{RawMessage}");
+            Console.Write(PRINTED_MESSAGE_HEADER, _message.Header, _description, RawMessage);
             for (int i = 0; i < _printableData.Count; i++)
             {
                 Console.WriteLine(_printableData[i].GetPrintData());
             }
-            Console.WriteLine($"\n========  /{_message.Header}  ========");
+            Console.WriteLine(PRINTED_MESSAGE_END, _message.Header);
         }
     }
 }

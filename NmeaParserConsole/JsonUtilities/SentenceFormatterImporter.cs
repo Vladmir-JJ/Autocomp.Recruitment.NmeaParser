@@ -1,7 +1,10 @@
 ﻿using Newtonsoft.Json;
+using NmeaParserConsole.ConsoleInterface;
 using NmeaParserConsole.Data.SerializableData.ExtraData;
 using NmeaParserConsole.Data.SerializableData.HeaderDefinition;
 using NmeaParserConsole.Interfaces;
+using static NmeaParserConsole.ConsoleInterface.ConsoleMessageLibrary;
+
 
 namespace NmeaParserConsole.JsonUtilities
 {
@@ -22,15 +25,13 @@ namespace NmeaParserConsole.JsonUtilities
             List<ISerializableData>? datas = GetAllDataOfType(dataType);
             if (datas == null)
             {
-                //TODO log error
-                Console.WriteLine($"ERROR - failed to deserialize file from {Path.Combine(JSON_PATH, GetFileName(dataType))}");
+                ConsoleErrorLogger.LogError(typeof(SentenceFormatterImporter), ERROR_FAILED_TO_DESERIALIZE, Path.Combine(JSON_PATH, GetFileName(dataType))); ;
                 return null;
             }
             var data = datas.FirstOrDefault(d => d.GetIdentifier() == id);
             if (data == default)
             {
-                //TODO: log error
-                Console.WriteLine($"Error - unsupported data id: {id}");
+                ConsoleErrorLogger.LogError(typeof(SentenceFormatterImporter), ERROR_UNSUPPORTED_DATA_ID, id);
                 return null;
             }
             return data;
@@ -41,7 +42,7 @@ namespace NmeaParserConsole.JsonUtilities
             string targetFile = Path.Combine(JSON_PATH, GetFileName(dataType));
             if (!File.Exists(targetFile))
             {
-                //TODO: log error file doesnt exist
+                ConsoleErrorLogger.LogError(typeof(SentenceFormatterImporter), ERROR_FILE_DOESNT_EXIST, targetFile);
                 return null;
             }
 
@@ -61,7 +62,7 @@ namespace NmeaParserConsole.JsonUtilities
                     break;
             }
 
-            return null;   
+            return null;
         }
 
         private static string GetFileName(ImportedData dataType)
@@ -73,7 +74,7 @@ namespace NmeaParserConsole.JsonUtilities
                 case ImportedData.ExtraData:
                     return EXTRA_DATA;
             }
-            //TODO: Log Error
+            ConsoleErrorLogger.LogError(typeof(SentenceFormatterImporter), ERROR_DATATYPE_INVALID, dataType.ToString());
             return "";
         }
     }

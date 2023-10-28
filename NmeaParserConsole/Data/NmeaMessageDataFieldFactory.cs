@@ -1,4 +1,5 @@
-﻿using NmeaParserConsole.Data.DataFields;
+﻿using NmeaParserConsole.ConsoleInterface;
+using NmeaParserConsole.Data.DataFields;
 using NmeaParserConsole.Data.SerializableData.ExtraData;
 using NmeaParserConsole.Data.SerializableData.HeaderDefinition;
 using NmeaParserConsole.JsonUtilities;
@@ -14,7 +15,7 @@ namespace NmeaParserConsole.Data
             string fieldType = fieldInfo.FieldType;
 
             if (fieldType == typeof(float).Name)
-            {
+            {                
                 var value = float.Parse(fieldValue, CultureInfo.InvariantCulture);
                 return new FieldTypeFloat(value, fieldInfo.Description, extraData);
             }
@@ -24,9 +25,7 @@ namespace NmeaParserConsole.Data
                 return new FieldTypeChar(c, fieldInfo.Description, extraData);
             }
 
-
-
-            Console.WriteLine($"[{this}] no valid field type found for type {fieldInfo.FieldType}");
+            ConsoleErrorLogger.LogError(this, ConsoleMessageLibrary.ERROR_NO_VALID_FIELD, fieldInfo.FieldType);
             return null;
         }
 
@@ -37,16 +36,10 @@ namespace NmeaParserConsole.Data
             ExtraDataContainer? fieldsData = SentenceFormatterImporter.GetDataFromFile(fieldInfo.ExtraData, ImportedData.ExtraData) as ExtraDataContainer;
             if (fieldsData == null)
             {
-                //TODO: move to logger?
-                Console.WriteLine($"[{this}] unknown extra data type: {fieldInfo.ExtraData}");
+                ConsoleErrorLogger.LogError(this, ConsoleMessageLibrary.ERROR_UNKNOWN_EXTRA_DATA, fieldInfo.ExtraData);
                 return null;
             }
             return fieldsData;
-        }
-
-        private void LogError(string fieldValue, string fieldType)
-        {
-            Console.WriteLine($"[{this}] parsing of {fieldValue} to {fieldType} failed");
         }
     }
 }

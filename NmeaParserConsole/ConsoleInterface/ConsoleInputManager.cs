@@ -2,7 +2,7 @@
 using NmeaParserConsole.Data;
 using NmeaParserConsole.Data.SerializableData.HeaderDefinition;
 using NmeaParserConsole.JsonUtilities;
-using System.Reflection;
+using static NmeaParserConsole.ConsoleInterface.ConsoleMessageLibrary;
 
 namespace NmeaParserConsole.ConsoleInterface
 {
@@ -14,16 +14,16 @@ namespace NmeaParserConsole.ConsoleInterface
             var response = Console.ReadKey(true);
             switch (response.KeyChar)
             {
-                case '1':
+                case CHOICE_1:
                     ConsoleOutputManager.PrintMessageFormats(ConsoleOutputManager.PrintHelpMessage);
                     break;
-                case '2':
-                    ConsoleOutputManager.PrintMessageWithCallback("Enter valid NMEA message with supported header:", AwaitMessage);
+                case CHOICE_2:
+                    ConsoleOutputManager.PrintMessageWithCallback(ENTER_VALID_NMEA, AwaitMessage);
                     break;
-                case '3':
-                    ConsoleOutputManager.PrintMessageWithCallback("Provide new NMEA header:", AwaitNewField);
+                case CHOICE_3:
+                    ConsoleOutputManager.PrintMessageWithCallback(PROVIDE_HEADER, AwaitNewField);
                     break;
-                default: ConsoleOutputManager.PrintMessageWithCallback("Invalid input",  ConsoleOutputManager.PrintHelpMessage);
+                default: ConsoleOutputManager.PrintMessageWithCallback(GENERIC_INVALID_INPUT,  ConsoleOutputManager.PrintHelpMessage);
                     break;
             }
         }
@@ -35,7 +35,7 @@ namespace NmeaParserConsole.ConsoleInterface
             if (userInput != null)
             {
                 string header;
-                string[]  parts = userInput.Split(',');
+                string[]  parts = userInput.Split(NMEA_SEPARATOR);
                 if (parts.Length >= 1)
                 {
                     header = parts[0];
@@ -61,8 +61,8 @@ namespace NmeaParserConsole.ConsoleInterface
                 var data = SentenceFormatterImporter.GetAllDataOfType(ImportedData.HeaderDefinitions);
                 if(data != null && data.Any(d => d.GetIdentifier() == header))
                 {
-                    Console.WriteLine($"Header {header} is already defined in json. Do you want to override it?\nPress [y] to confirm, press any key to exit");
-                    if (Console.ReadKey().KeyChar != 'y')
+                    Console.WriteLine(HEADER_EXISTS, header);
+                    if (Console.ReadKey().KeyChar != YES)
                     {
                         ConsoleOutputManager.PrintHelpMessage();
                         return;
@@ -72,23 +72,23 @@ namespace NmeaParserConsole.ConsoleInterface
                 List<HeaderDefinitionFieldCharacteristics> fieldCharacteristics = new();
                 while (true)
                 {                    
-                    Console.WriteLine($"Provide field number {i}:\nDescription=FieldType=RegexFormat=ExtraDataType\nExample:\nStatus: =Char=^[A,V]$=Status\nexit => quit without saving\nfinish => proceed");
+                    Console.WriteLine(PROVIDE_FIELD, i);
                     string? response = Console.ReadLine();
                     if (response != null)
                     {
-                        if (response == "exit")
+                        if (response == INPUT_EXIT)
                         {
                             ConsoleOutputManager.PrintHelpMessage();
                             return;
                         }
-                        if(response == "finish")
+                        if(response == INPUT_FINISH)
                         {
                             break;
                         }
-                        string[] fields = response.Split('=');
+                        string[] fields = response.Split(HEADER_DEFINITION_SEPARATOR);
                         if(fields.Length != 4)
                         {
-                            Console.WriteLine("Invalid definition");
+                            ConsoleErrorLogger.LogError(GENERIC_INVALID_INPUT);
                             ConsoleOutputManager.PrintHelpMessage();
                             return;
                         }
@@ -97,18 +97,18 @@ namespace NmeaParserConsole.ConsoleInterface
                         i++;
                     }
                 }
-                Console.WriteLine("Provide header description:");
+                Console.WriteLine(PROVIDE_DESCRIPTION);
                 string? description = Console.ReadLine();
-                Console.WriteLine("Provide message format details:\nExample:\nMWV,x.x,a,y.y,b,c\n add description for values if needed\nFields entered:");
+                Console.WriteLine(PROVIDE_FORMAT_DESCRIPTION);
                 for (int j = 0; j < fieldCharacteristics.Count; j++)
                 {
                     Console.WriteLine($"{fieldCharacteristics[j].Description} {fieldCharacteristics[j].FieldType} {fieldCharacteristics[j].Format} {fieldCharacteristics[j].ExtraData}");
                 }
                 string? formatDetails = Console.ReadLine();
                 if (description == null)
-                    description = "Unknown description";
+                    description = UNKNOWN_DESCRIPTION;
                 if (formatDetails == null)
-                    formatDetails = "Unknown format details";
+                    formatDetails = UNKNOWN_DETAILS;
                 formatDetails = formatDetails.Replace("\\n", "\n");
                 HeaderDefinitionData newData = new(header, description, formatDetails, fieldCharacteristics);
                 SentenceFormatterExportUtility e = new();
