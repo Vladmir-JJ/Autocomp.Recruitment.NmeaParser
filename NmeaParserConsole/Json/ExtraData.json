@@ -95,5 +95,31 @@
                 "Value": " [statute miles/hour]"
             }
         ]
+    },
+    {
+        "ExtraDataType": "TestEnum",
+        "ExtraInfo": [
+            {
+                "Key": "X",
+                "Value": " Ketchup"
+            },
+            {
+                "Key": "D",
+                "Value": " Mustard"
+            }
+        ]
+    },
+    {
+        "ExtraDataType": "TestDev",
+        "ExtraInfo": [
+            {
+                "Key": "U",
+                "Value": " Unity"
+            },
+            {
+                "Key": "C",
+                "Value": " C#"
+            }
+        ]
     }
 ]
