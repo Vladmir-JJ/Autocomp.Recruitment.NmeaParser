@@ -3,7 +3,6 @@ using NmeaParserConsole.Data;
 using NmeaParserConsole.Data.SerializableData.ExtraData;
 using NmeaParserConsole.Data.SerializableData.HeaderDefinition;
 using NmeaParserConsole.JsonUtilities;
-using System.Reflection;
 using static NmeaParserConsole.ConsoleInterface.ConsoleMessageLibrary;
 
 namespace NmeaParserConsole.ConsoleInterface

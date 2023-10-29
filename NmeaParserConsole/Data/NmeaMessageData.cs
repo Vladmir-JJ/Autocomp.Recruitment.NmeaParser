@@ -2,7 +2,6 @@
 using NmeaParserConsole.ConsoleInterface;
 using NmeaParserConsole.Data.DataFields;
 using NmeaParserConsole.Data.SerializableData.HeaderDefinition;
-using static NmeaParserConsole.ConsoleInterface.ConsoleMessageLibrary;
 
 namespace NmeaParserConsole.Data
 {
