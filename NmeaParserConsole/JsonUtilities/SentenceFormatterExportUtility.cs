@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using NmeaParserConsole.Data.SerializableData.ExtraData;
 using NmeaParserConsole.Data.SerializableData.HeaderDefinition;
 using NmeaParserConsole.Interfaces;
 
@@ -6,6 +7,9 @@ namespace NmeaParserConsole.JsonUtilities
 {
     public class SentenceFormatterExportUtility
     {
+        /// <summary>
+        /// Exports new header deffinition. Default implementation overrides existing definition if user approves it.
+        /// </summary>
         public void ExportHeaderDataToson(HeaderDefinitionData data, bool overrideSave = false)
         {
             string path = Path.Combine(SentenceFormatterImporter.JSON_PATH, SentenceFormatterImporter.HEADER_DEF);
@@ -14,8 +18,24 @@ namespace NmeaParserConsole.JsonUtilities
                 data
             };
             SaveData(toSave, path, ImportedData.HeaderDefinitions, overrideSave);
-        }      
+        }
 
+        /// <summary>
+        /// Exports new extra data definition. Default implementation overrides existing definition if user approves it.
+        /// </summary>
+        public void ExportExtraDataToson(ExtraDataContainer data, bool overrideSave = false)
+        {
+            string path = Path.Combine(SentenceFormatterImporter.JSON_PATH, SentenceFormatterImporter.EXTRA_DATA);
+            List<ExtraDataContainer> toSave = new List<ExtraDataContainer>
+            {
+                data
+            };
+            SaveData(toSave, path, ImportedData.ExtraData, overrideSave);
+        }
+
+        /// <summary>
+        /// Saves serializable data to json file.
+        /// </summary>
         private void SaveData<T>(List<T> toSave, string path, ImportedData dataType, bool overrideSave = false) where T : ISerializableData
         {
             List<ISerializableData>? fromFile = SentenceFormatterImporter.GetAllDataOfType(dataType);

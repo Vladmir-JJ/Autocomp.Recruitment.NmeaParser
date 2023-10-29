@@ -3,13 +3,15 @@
     [Serializable]
     public class ExtraData
     {
-        public string Key;
-        public string Value;
+        public string Key { get; private set; }
+        public string Value { get; private set; }
 
-        public ExtraData(string Key, string Value)
+        public ExtraData(string key, string value)
         {
-            this.Key = Key;
-            this.Value = Value;
+            this.Key = key;
+            this.Value = value;
         }
+
+        public static int GetFieldCount() => typeof(ExtraData).GetProperties().Count();
     }
 }

@@ -10,6 +10,9 @@ namespace NmeaParserConsole.Data
 {
     public class NmeaDataValidator
     {
+        /// <summary>
+        /// Validates NMEA message for proper field count and field content consistency.
+        /// </summary>
         public NmeaMessageData? GetValidNmeaMessageData(NmeaMessage message)
         {
             HeaderDefinitionData? fieldsData = SentenceFormatterImporter.GetDataFromFile(message.Header, ImportedData.HeaderDefinitions) as HeaderDefinitionData;
@@ -24,6 +27,9 @@ namespace NmeaParserConsole.Data
             return new NmeaMessageData(message, fieldsData);
         }
 
+        /// <summary>
+        /// Validates field count for given header and runs RegEx check on individual fields.
+        /// </summary>
         private bool ValidateFields(string[] fields, List<HeaderDefinitionFieldCharacteristics> expectedFields)
         {
             if (fields.Length != expectedFields.Count)
@@ -42,6 +48,9 @@ namespace NmeaParserConsole.Data
             return true;
         }
 
+        /// <summary>
+        /// Validates RegEx for individual NMEA field.
+        /// </summary>
         private bool ValidateField(string fieldValue, string expectedFormat)
         {
             if (Regex.Match(fieldValue, expectedFormat).Success)

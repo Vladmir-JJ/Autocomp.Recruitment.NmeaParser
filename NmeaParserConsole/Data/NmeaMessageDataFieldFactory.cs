@@ -9,15 +9,20 @@ namespace NmeaParserConsole.Data
 {
     public class NmeaMessageDataFieldFactory
     {
+        /// <summary>
+        /// Parses field data to provided format previously checked by RegEx.
+        /// </summary>
         public AbstractNmeaField? CreateField(HeaderDefinitionFieldCharacteristics fieldInfo, string fieldValue)
         {
             ExtraDataContainer? extraData = GetExtraData(fieldInfo);
             string fieldType = fieldInfo.FieldType;
 
             if (fieldType == typeof(float).Name)
-            {                
-                var value = float.Parse(fieldValue, CultureInfo.InvariantCulture);
-                return new FieldTypeFloat(value, fieldInfo.Description, extraData);
+            {
+                if (float.TryParse(fieldValue, NumberStyles.Any, CultureInfo.InvariantCulture, out float value))
+                    return new FieldTypeFloat(value, fieldInfo.Description, extraData);
+                else
+                    LogErrorViaLogger(fieldType, typeof(float).ToString());              
             }
             if (fieldType == typeof(char).Name)
             {
@@ -29,6 +34,9 @@ namespace NmeaParserConsole.Data
             return null;
         }
 
+        /// <summary>
+        /// Returns extra data for describing NMEA acronyms.
+        /// </summary>
         private ExtraDataContainer? GetExtraData(HeaderDefinitionFieldCharacteristics fieldInfo)
         {
             if (fieldInfo.ExtraData == ExtraDataType.None.ToString())
@@ -40,6 +48,14 @@ namespace NmeaParserConsole.Data
                 return null;
             }
             return fieldsData;
+        }
+
+        /// <summary>
+        /// Calls error logger to siglan parsing errors.
+        /// </summary>
+        private void LogErrorViaLogger(string fieldType, string parsingType)
+        {
+            ConsoleErrorLogger.LogError(this, ConsoleMessageLibrary.PARSE_ERROR, fieldType, parsingType);
         }
     }
 }

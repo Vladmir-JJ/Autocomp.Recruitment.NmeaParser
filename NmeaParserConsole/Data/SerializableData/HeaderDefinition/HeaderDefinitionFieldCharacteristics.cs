@@ -18,5 +18,7 @@ namespace NmeaParserConsole.Data.SerializableData.HeaderDefinition
             this.Format = Format;
             this.ExtraData = ExtraData;
         }
+
+        public static int GetFieldCount() => typeof(HeaderDefinitionFieldCharacteristics).GetProperties().Count();
     }
 }

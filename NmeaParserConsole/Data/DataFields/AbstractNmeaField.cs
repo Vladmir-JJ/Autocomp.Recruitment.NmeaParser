@@ -13,8 +13,14 @@ namespace NmeaParserConsole.Data.DataFields
             _extraData = extraData;
         }
 
+        /// <summary>
+        /// Returns data for console print
+        /// </summary>
         public abstract string GetPrintData();
 
+        /// <summary>
+        /// Returns extra data describing acronyms (i.e. A = status valid), if extra data is defined in ExtraData.json and ExtraDataType.cs
+        /// </summary>
         public virtual string GetExtraData(string input)
         {
             if (_extraData == null)

@@ -1,4 +1,5 @@
 ﻿using Autocomp.Nmea.Common;
+using NmeaParserConsole.ConsoleInterface;
 using NmeaParserConsole.Data.DataFields;
 using NmeaParserConsole.Data.SerializableData.HeaderDefinition;
 using static NmeaParserConsole.ConsoleInterface.ConsoleMessageLibrary;
@@ -6,9 +7,7 @@ using static NmeaParserConsole.ConsoleInterface.ConsoleMessageLibrary;
 namespace NmeaParserConsole.Data
 {
     public class NmeaMessageData
-    {
-        private string RawMessage => _message.ToString();
-
+    {      
         private NmeaMessage _message;
         private List<AbstractNmeaField> _printableData;
         private string _description;
@@ -20,6 +19,9 @@ namespace NmeaParserConsole.Data
             _description = data.MessageDescription;
         }
 
+        /// <summary>
+        /// Populates _printableData with objects containing desired data types.
+        /// </summary>
         private List<AbstractNmeaField> BuildFields(HeaderDefinitionData data)
         {
             List<AbstractNmeaField> ret = new();
@@ -34,14 +36,12 @@ namespace NmeaParserConsole.Data
             return ret;
         }
 
+        /// <summary>
+        /// Calls console output manager to print data.
+        /// </summary>
         public virtual void PrintMessage()
         {
-            Console.Write(PRINTED_MESSAGE_HEADER, _message.Header, _description, RawMessage);
-            for (int i = 0; i < _printableData.Count; i++)
-            {
-                Console.WriteLine(_printableData[i].GetPrintData());
-            }
-            Console.WriteLine(PRINTED_MESSAGE_END, _message.Header);
+            ConsoleOutputManager.PrintNmeaMessage(_printableData, _message.Header, _description, _message.ToString());         
         }
     }
 }

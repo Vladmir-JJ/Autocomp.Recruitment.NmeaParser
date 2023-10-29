@@ -20,6 +20,9 @@ namespace NmeaParserConsole.JsonUtilities
         public const string HEADER_DEF = "HeaderDefinitions.json";
         public const string EXTRA_DATA = "ExtraData.json";
 
+        /// <summary>
+        /// Imports data from json file by identifier (NMEA header or extra data enum).
+        /// </summary>
         public static ISerializableData? GetDataFromFile(string id, ImportedData dataType)
         {
             List<ISerializableData>? datas = GetAllDataOfType(dataType);
@@ -37,6 +40,9 @@ namespace NmeaParserConsole.JsonUtilities
             return data;
         }
 
+        /// <summary>
+        /// Returns all data present in json file.
+        /// </summary>
         public static List<ISerializableData>? GetAllDataOfType(ImportedData dataType)
         {
             string targetFile = Path.Combine(JSON_PATH, GetFileName(dataType));
@@ -65,6 +71,9 @@ namespace NmeaParserConsole.JsonUtilities
             return null;
         }
 
+        /// <summary>
+        /// Returns file storing specified data by type provided.
+        /// </summary>
         private static string GetFileName(ImportedData dataType)
         {
             switch (dataType)
